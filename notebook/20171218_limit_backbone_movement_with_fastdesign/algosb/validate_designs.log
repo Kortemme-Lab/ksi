@@ -1,0 +1,390 @@
+core.init: Rosetta version: 2017.44.post.dev+169.master.1027f6176ac 1027f6176ac1185227257509d3882c592bf8f205 git@guybrush.ucsf.edu:kortemme-lab/rosetta.git 2017-11-05T11:24:09
+core.init: command: rosetta/source/bin/rosetta_scripts -database rosetta/database -in:file:s design_models_KSI_D38E_0001.pdb -in:file:native inputs/KSI_WT.pdb -out:prefix validate_designs_ -out:overwrite -parser:protocol inputs/validate_designs.xml -parser:script_vars wts_file=rosetta/database/scoring/weights/ref2015.wts loop_file=inputs/loops fast=yes -extra_res_fa inputs/EQU.fa.params -extra_res_cen inputs/EQU.cen.params
+core.init: 'RNG device' seed mode, using '/dev/urandom', seed=-25340844 seed_offset=0 real_seed=-25340844
+core.init.random: RandomGenerator:init: Normal mode, seed=-25340844 RG_type=mt19937
+protocols.jd2.PDBJobInputter: Instantiate PDBJobInputter
+protocols.jd2.PDBJobInputter: PDBJobInputter::fill_jobs
+protocols.jd2.PDBJobInputter: pushed design_models_KSI_D38E_0001.pdb nstruct index 1
+core.chemical.GlobalResidueTypeSet: Finished initializing fa_standard residue type set.  Created 570 residue types
+core.chemical.GlobalResidueTypeSet: Total time to initialize 8.74074 seconds.
+core.import_pose.import_pose: File 'inputs/KSI_WT.pdb' automatically determined to be of type PDB
+protocols.evaluation.ChiWellRmsdEvaluatorCreator: Evaluation Creator active ... 
+protocols.jd2.PDBJobInputter: PDBJobInputter::pose_from_job
+protocols.jd2.PDBJobInputter: filling pose from PDB design_models_KSI_D38E_0001.pdb
+core.import_pose.import_pose: File 'design_models_KSI_D38E_0001.pdb' automatically determined to be of type PDB
+protocols.rosetta_scripts.RosettaScriptsParser: dock_design_filename=inputs/validate_designs.xml
+protocols.rosetta_scripts.RosettaScriptsParser: Variable substitution will occur with the following values: '%%fast%%'='yes';  '%%loop_file%%'='inputs/loops';  '%%wts_file%%'='rosetta/database/scoring/weights/ref2015.wts';  
+protocols.rosetta_scripts.RosettaScriptsParser: Substituted script:
+<ROSETTASCRIPTS>
+
+  <SCOREFXNS>
+    <ScoreFunction name="scorefxn" weights="rosetta/database/scoring/weights/ref2015.wts"/>
+    <ScoreFunction name="scorefxn_cst" weights="rosetta/database/scoring/weights/ref2015.wts">
+      <Reweight scoretype="coordinate_constraint" weight="1.0"/>
+      <Reweight scoretype="atom_pair_constraint" weight="1.0"/>
+      <Reweight scoretype="angle_constraint" weight="1.0"/>
+      <Reweight scoretype="dihedral_constraint" weight="1.0"/>
+      <Reweight scoretype="res_type_constraint" weight="1.0"/>
+    </ScoreFunction>
+  </SCOREFXNS>
+
+  <MOVERS>
+    <LoopModeler name="modeler"
+      config="kic"
+      scorefxn_fa="scorefxn"
+      loops_file="inputs/loops"
+      fast="yes">
+        <Build skip="yes"/>
+    </LoopModeler>
+  </MOVERS>
+
+  <PROTOCOLS>
+    <Add mover_name="modeler"/>
+  </PROTOCOLS>
+
+  <OUTPUT scorefxn="scorefxn"/>
+
+</ROSETTASCRIPTS>
+protocols.rosetta_scripts.RosettaScriptsParser: Generating XML Schema for rosetta_scripts...
+protocols.rosetta_scripts.RosettaScriptsParser: ...done
+protocols.rosetta_scripts.RosettaScriptsParser: Initializing schema validator...
+protocols.rosetta_scripts.RosettaScriptsParser: ...done
+protocols.rosetta_scripts.RosettaScriptsParser: Validating input script...
+protocols.rosetta_scripts.RosettaScriptsParser: ...done
+protocols.rosetta_scripts.RosettaScriptsParser: Parsed script:
+<ROSETTASCRIPTS>
+	<SCOREFXNS>
+		<ScoreFunction name="scorefxn" weights="rosetta/database/scoring/weights/ref2015.wts"/>
+		<ScoreFunction name="scorefxn_cst" weights="rosetta/database/scoring/weights/ref2015.wts">
+			<Reweight scoretype="coordinate_constraint" weight="1.0"/>
+			<Reweight scoretype="atom_pair_constraint" weight="1.0"/>
+			<Reweight scoretype="angle_constraint" weight="1.0"/>
+			<Reweight scoretype="dihedral_constraint" weight="1.0"/>
+			<Reweight scoretype="res_type_constraint" weight="1.0"/>
+		</ScoreFunction>
+	</SCOREFXNS>
+	<MOVERS>
+		<LoopModeler config="kic" fast="yes" loops_file="inputs/loops" name="modeler" scorefxn_fa="scorefxn">
+			<Build skip="yes"/>
+		</LoopModeler>
+	</MOVERS>
+	<PROTOCOLS>
+		<Add mover_name="modeler"/>
+	</PROTOCOLS>
+	<OUTPUT scorefxn="scorefxn"/>
+</ROSETTASCRIPTS>
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+core.scoring.etable: Starting energy table calculation
+core.scoring.etable: smooth_etable: changing atr/rep split to bottom of energy well
+core.scoring.etable: smooth_etable: spline smoothing lj etables (maxdis = 6)
+core.scoring.etable: smooth_etable: spline smoothing solvation etables (max_dis = 6)
+core.scoring.etable: Finished calculating energy tables.
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBPoly1D.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBFadeIntervals.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBEval.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/DonStrength.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/AccStrength.csv
+basic.io.database: Database file opened: scoring/score_functions/rama/fd/all.ramaProb
+basic.io.database: Database file opened: scoring/score_functions/rama/fd/prepro.ramaProb
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.all.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.gly.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.pro.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.valile.txt
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/P_AA
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/P_AA_n
+core.scoring.P_AA: shapovalov_lib::shap_p_aa_pp_smooth_level of 1( aka low_smooth ) got activated.
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/shapovalov/10deg/kappa131/a20.prop
+core.scoring.etable: Starting energy table calculation
+core.scoring.etable: smooth_etable: changing atr/rep split to bottom of energy well
+core.scoring.etable: smooth_etable: spline smoothing lj etables (maxdis = 6)
+core.scoring.etable: smooth_etable: spline smoothing solvation etables (max_dis = 6)
+core.scoring.etable: Finished calculating energy tables.
+basic.io.database: Database file opened: scoring/score_functions/PairEPotential/pdb_pair_stats_fine
+basic.io.database: Database file opened: scoring/score_functions/InterchainPotential/interchain_env_log.txt
+basic.io.database: Database file opened: scoring/score_functions/InterchainPotential/interchain_pair_log.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/env_log.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/cbeta_den.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/pair_log.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/cenpack_log.txt
+core.scoring.ramachandran: shapovalov_lib::shap_rama_smooth_level of 4( aka highest_smooth ) got activated.
+basic.io.database: Database file opened: scoring/score_functions/rama/shapovalov/kappa25/all.ramaProb
+protocols.jd2.parser.ScoreFunctionLoader: defined score function "scorefxn" with weights "rosetta/database/scoring/weights/ref2015.wts"
+protocols.jd2.parser.ScoreFunctionLoader: defined score function "scorefxn_cst" with weights "rosetta/database/scoring/weights/ref2015.wts"
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight coordinate_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight atom_pair_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight angle_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight dihedral_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight res_type_constraint to 1
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+loops: Loops object initializing itself from pose-numbered loop file named inputs/loops. This functionality is soon to be deprecated.
+loops: [ WARNING ] LOOP formats were recently reconciled - with *some* backwards compatibility. Please check your definition files!
+loops: [ WARNING ] Please check that this is what you intended to read in: 
+loops: [ WARNING ] LOOP  begin  end  cut  skip_rate  extended
+loops: [ WARNING ] LOOP start: 26  stop: 51  cut: 51  size: 26  skip rate: 0  extended?: True
+loops: [ WARNING ] 
+protocols.rosetta_scripts.RosettaScriptsParser: Defined mover named "modeler" of type LoopModeler
+protocols.rosetta_scripts.ParsedProtocol: ParsedProtocol mover with the following movers and filters
+protocols.rosetta_scripts.ParsedProtocol: added mover "modeler" with filter "true_filter"
+protocols.jd2.PDBJobInputter: PDBJobInputter::pose_from_job
+protocols.jd2.PDBJobInputter: filling pose from saved copy design_models_KSI_D38E_0001.pdb
+protocols.rosetta_scripts.ParsedProtocol: =======================BEGIN MOVER LoopModeler - modeler=======================
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.import_pose.import_pose: File 'inputs/KSI_WT.pdb' automatically determined to be of type PDB
+core.chemical.GlobalResidueTypeSet: Finished initializing centroid residue type set.  Created 63 residue types
+core.chemical.GlobalResidueTypeSet: Total time to initialize 0.27743 seconds.
+protocols.loop_modeler.LoopModeler: Centroid Stage
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loop_modeling.LoopProtocol: sfxn_cycles:    3
+protocols.loop_modeling.LoopProtocol: temp_cycles:    3
+protocols.loop_modeling.LoopProtocol: mover_cycles:   2
+protocols.loop_modeling.LoopProtocol: ramp_sfxn_rep:  0
+protocols.loop_modeling.LoopProtocol: ramp_sfxn_rama: 0
+protocols.loop_modeling.LoopProtocol: ramp_temp:      1
+protocols.loop_modeling.LoopProtocol: initial_temp:   2
+protocols.loop_modeling.LoopProtocol: final_temp:     1
+protocols.loop_modeling.LoopProtocol: loop_movers:    KicMover
+protocols.loop_modeling.LoopProtocol: loop_movers:      StandardPivots
+protocols.loop_modeling.LoopProtocol: loop_movers:      Rama2bPerturber
+protocols.loop_modeling.LoopProtocol: loop_movers:      OmegaPerturber
+protocols.loop_modeling.LoopProtocol: loop_movers:    MinimizationRefiner
+core.scoring.Ramachandran2B: Read in ramachandran map: scoring/score_functions/rama/Rama08.dat
+basic.io.database: Database file opened: scoring/score_functions/rama/Rama08.dat
+core.scoring.Ramachandran2B: Reading Rama from database took 1.7291 seconds
+core.optimization.LineMinimizer: [ ERROR ] Inaccurate G! step= 3.8147e-08 Deriv= -3.88402 Finite Diff= 4.32271
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.optimization.LineMinimizer: [ ERROR ] Inaccurate G! step= 3.8147e-06 Deriv= -0.258651 Finite Diff= 0.206495
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loop_modeler.LoopModeler: Centroid Time: 56 sec
+protocols.loop_modeler.LoopModeler: Fullatom Stage
+basic.io.database: Database file opened: scoring/score_functions/elec_cp_reps.dat
+core.scoring.elec.util: Read 40 countpair representative atoms
+core.pack.dunbrack.RotamerLibrary: shapovalov_lib_fixes_enable option is true.
+core.pack.dunbrack.RotamerLibrary: shapovalov_lib::shap_dun10_smooth_level of 1( aka lowest_smooth ) got activated.
+core.pack.dunbrack.RotamerLibrary: Binary rotamer library selected: rosetta/database/rotamer/shapovalov/StpDwn_0-0-0/Dunbrack10.lib.bin
+core.pack.dunbrack.RotamerLibrary: Using Dunbrack library binary file 'rosetta/database/rotamer/shapovalov/StpDwn_0-0-0/Dunbrack10.lib.bin'.
+core.pack.dunbrack.RotamerLibrary: Dunbrack 2010 library took 0.704998 seconds to load from binary
+core.pack.pack_rotamers: built 969 rotamers at 26 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 856656 bytes
+core.pack.annealer.FixbbSimAnnealer: pack_rotamers run final: IVALFADDATLEELAGQPPLSGTAAI, best_energy: -128.296
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loop_modeling.LoopProtocol: sfxn_cycles:    3
+protocols.loop_modeling.LoopProtocol: temp_cycles:    3
+protocols.loop_modeling.LoopProtocol: mover_cycles:   2
+protocols.loop_modeling.LoopProtocol: ramp_sfxn_rep:  1
+protocols.loop_modeling.LoopProtocol: ramp_sfxn_rama: 1
+protocols.loop_modeling.LoopProtocol: ramp_temp:      1
+protocols.loop_modeling.LoopProtocol: initial_temp:   1.5
+protocols.loop_modeling.LoopProtocol: final_temp:     0.5
+protocols.loop_modeling.LoopProtocol: loop_movers:    KicMover
+protocols.loop_modeling.LoopProtocol: loop_movers:      StandardPivots
+protocols.loop_modeling.LoopProtocol: loop_movers:      Rama2bPerturber
+protocols.loop_modeling.LoopProtocol: loop_movers:      OmegaPerturber
+protocols.loop_modeling.LoopProtocol: loop_movers:    RepackingRefiner
+protocols.loop_modeling.LoopProtocol: loop_movers:    RotamerTrialsRefiner
+protocols.loop_modeling.LoopProtocol: loop_movers:    MinimizationRefiner
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.pack_rotamers: built 3936 rotamers at 78 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 10163888 bytes
+core.pack.annealer.FixbbSimAnnealer: pack_rotamers run final: AVVRYVAALAGDLDGIVALFADDATLEELAGQPPLSGTAAIRTFYASLPDHFRFNGAGKVVSMRALFGRALANEAARZ, best_energy: 643.419
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loop_modeler.LoopModeler: Fullatom Time: 561 sec
+protocols.loop_modeler.LoopModeler: Total Score: -850.575
+protocols.loop_modeler.LoopModeler: Chainbreak Score: 0.0100675
+protocols.loop_modeler.LoopModeler: Loop Backbone RMSD: 1.19039
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+basic.io.database: Database file opened: scoring/score_functions/hbonds/sp2_elec_params/HBPoly1D.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/sp2_elec_params/HBFadeIntervals.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/sp2_elec_params/HBEval.csv
+protocols.simple_filters.BuriedUnsatHbondFilter: BOUND: [1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0]
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+protocols.simple_filters.BuriedUnsatHbondFilter: BOUND: [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+protocols.loop_modeler.LoopModeler: Delta Buried Unsatisfied H-bonds: +8
+protocols.rosetta_scripts.ParsedProtocol: setting status to success
+protocols.jd2.JobDistributor: validate_designs_design_models_KSI_D38E_0001_0001 reported success in 685 seconds
+protocols.jd2.JobDistributor: no more batches to process... 
+protocols.jd2.JobDistributor: 1 jobs considered, 1 jobs attempted in 686 seconds

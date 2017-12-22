@@ -1,1 +1,7 @@
 /build
+outputs/
+*.png
+*.tif
+*.tiff
+*.pdf
+*.pse

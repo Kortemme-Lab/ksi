@@ -1,0 +1,39 @@
+<ROSETTASCRIPTS>
+
+  <SCOREFXNS>
+    <ScoreFunction name="scorefxn" weights="%%wts_file%%"/>
+    <ScoreFunction name="scorefxn_cst" weights="%%wts_file%%">
+      <Reweight scoretype="coordinate_constraint" weight="1.0"/>
+      <Reweight scoretype="atom_pair_constraint" weight="1.0"/>
+      <Reweight scoretype="angle_constraint" weight="1.0"/>
+      <Reweight scoretype="dihedral_constraint" weight="1.0"/>
+      <Reweight scoretype="res_type_constraint" weight="1.5"/>
+      <Reweight scoretype="chainbreak" weight="100.0"/>
+    </ScoreFunction>
+  </SCOREFXNS>
+
+  <TASKOPERATIONS>
+    <InitializeFromCommandline name="cli"/>
+    <ReadResfile name="resfile"/>
+    <ExtraRotamersGeneric name="ex" ex1="yes" ex2="yes" extrachi_cutoff="0"/>
+  </TASKOPERATIONS>
+
+  <MOVERS>
+    <FavorNativeResidue name="favornative" />
+    <ConstraintSetMover name="cst" cst_fa_file="%%cst_file%%"/>
+    <FastDesign name="fastdesign" 
+        task_operations="cli,resfile,ex" scorefxn="scorefxn_cst">
+      <MoveMap bb="no" chi="yes" jump="no"/>
+    </FastDesign>
+  </MOVERS>
+
+  <PROTOCOLS>
+    <Add mover_name="favornative"/>
+    <Add mover_name="cst"/> <!-- Constraints added via mover because command-line is ignored -->
+    <Add mover_name="fastdesign"/>
+  </PROTOCOLS>
+
+  <OUTPUT scorefxn="scorefxn_cst"/>
+
+</ROSETTASCRIPTS>
+

@@ -1,0 +1,764 @@
+core.init: Rosetta version: 2017.44.post.dev+169.master.1027f6176ac 1027f6176ac1185227257509d3882c592bf8f205 git@guybrush.ucsf.edu:kortemme-lab/rosetta.git 2017-11-05T11:24:09
+core.init: command: rosetta/source/bin/rosetta_scripts -database rosetta/database -in:file:s inputs/KSI_D38E.pdb -in:file:native inputs/KSI_WT.pdb -out:prefix build_models_ -out:overwrite -parser:protocol inputs/build_models.xml -parser:script_vars wts_file=rosetta/database/scoring/weights/ref2015.wts loop_file=inputs/loops dont_mutate=26-35,37,38,46-51 fast=yes -lh:db_path inputs/loophash_db -lh:loopsizes 6 7 8 9 10 11 12 13 14 -constraints:cst_fa_file inputs/restraints -extra_res_fa inputs/EQU.fa.params -extra_res_cen inputs/EQU.cen.params
+core.init: 'RNG device' seed mode, using '/dev/urandom', seed=-1180691877 seed_offset=0 real_seed=-1180691877
+core.init.random: RandomGenerator:init: Normal mode, seed=-1180691877 RG_type=mt19937
+protocols.jd2.PDBJobInputter: Instantiate PDBJobInputter
+protocols.jd2.PDBJobInputter: PDBJobInputter::fill_jobs
+protocols.jd2.PDBJobInputter: pushed inputs/KSI_D38E.pdb nstruct index 1
+core.chemical.GlobalResidueTypeSet: Finished initializing fa_standard residue type set.  Created 570 residue types
+core.chemical.GlobalResidueTypeSet: Total time to initialize 9.25323 seconds.
+core.import_pose.import_pose: File 'inputs/KSI_WT.pdb' automatically determined to be of type PDB
+protocols.evaluation.ChiWellRmsdEvaluatorCreator: Evaluation Creator active ... 
+protocols.jd2.PDBJobInputter: PDBJobInputter::pose_from_job
+protocols.jd2.PDBJobInputter: filling pose from PDB inputs/KSI_D38E.pdb
+core.import_pose.import_pose: File 'inputs/KSI_D38E.pdb' automatically determined to be of type PDB
+protocols.rosetta_scripts.RosettaScriptsParser: dock_design_filename=inputs/build_models.xml
+protocols.rosetta_scripts.RosettaScriptsParser: Variable substitution will occur with the following values: '%%dont_mutate%%'='26-35,37,38,46-51';  '%%fast%%'='yes';  '%%loop_file%%'='inputs/loops';  '%%wts_file%%'='rosetta/database/scoring/weights/ref2015.wts';  
+protocols.rosetta_scripts.RosettaScriptsParser: Substituted script:
+<ROSETTASCRIPTS>
+
+  <SCOREFXNS>
+    <ScoreFunction name="scorefxn" weights="rosetta/database/scoring/weights/ref2015.wts"/>
+    <ScoreFunction name="scorefxn_cst" weights="rosetta/database/scoring/weights/ref2015.wts">
+      <Reweight scoretype="coordinate_constraint" weight="1.0"/>
+      <Reweight scoretype="atom_pair_constraint" weight="1.0"/>
+      <Reweight scoretype="angle_constraint" weight="1.0"/>
+      <Reweight scoretype="dihedral_constraint" weight="1.0"/>
+      <Reweight scoretype="res_type_constraint" weight="1.5"/>
+    </ScoreFunction>
+  </SCOREFXNS>
+
+  <TASKOPERATIONS>
+    <InitializeFromCommandline name="cli"/>
+    <ReadResfile name="resfile"/>
+    <RestrictToRepacking name="repackonly"/>
+  </TASKOPERATIONS>
+
+  <MOVERS>
+    <LoopModeler name="modeler"
+      config="loophash_kic"
+      scorefxn_fa="scorefxn_cst"
+      task_operations="cli,resfile,repackonly"
+      loops_file="inputs/loops"
+      loophash_perturb_sequence="yes"
+      loophash_seqposes_no_mutate="26-35,37,38,46-51"
+      fast="yes">
+        <Build skip="yes"/>
+    </LoopModeler>
+  </MOVERS>
+
+  <PROTOCOLS>
+    <!-- Constraints read from command line -->
+    <Add mover_name="modeler"/>
+  </PROTOCOLS>
+
+  <OUTPUT scorefxn="scorefxn"/>
+
+</ROSETTASCRIPTS>
+protocols.rosetta_scripts.RosettaScriptsParser: Generating XML Schema for rosetta_scripts...
+protocols.rosetta_scripts.RosettaScriptsParser: ...done
+protocols.rosetta_scripts.RosettaScriptsParser: Initializing schema validator...
+protocols.rosetta_scripts.RosettaScriptsParser: ...done
+protocols.rosetta_scripts.RosettaScriptsParser: Validating input script...
+protocols.rosetta_scripts.RosettaScriptsParser: ...done
+protocols.rosetta_scripts.RosettaScriptsParser: Parsed script:
+<ROSETTASCRIPTS>
+	<SCOREFXNS>
+		<ScoreFunction name="scorefxn" weights="rosetta/database/scoring/weights/ref2015.wts"/>
+		<ScoreFunction name="scorefxn_cst" weights="rosetta/database/scoring/weights/ref2015.wts">
+			<Reweight scoretype="coordinate_constraint" weight="1.0"/>
+			<Reweight scoretype="atom_pair_constraint" weight="1.0"/>
+			<Reweight scoretype="angle_constraint" weight="1.0"/>
+			<Reweight scoretype="dihedral_constraint" weight="1.0"/>
+			<Reweight scoretype="res_type_constraint" weight="1.5"/>
+		</ScoreFunction>
+	</SCOREFXNS>
+	<TASKOPERATIONS>
+		<InitializeFromCommandline name="cli"/>
+		<ReadResfile name="resfile"/>
+		<RestrictToRepacking name="repackonly"/>
+	</TASKOPERATIONS>
+	<MOVERS>
+		<LoopModeler config="loophash_kic" fast="yes" loophash_perturb_sequence="yes" loophash_seqposes_no_mutate="26-35,37,38,46-51" loops_file="inputs/loops" name="modeler" scorefxn_fa="scorefxn_cst" task_operations="cli,resfile,repackonly">
+			<Build skip="yes"/>
+		</LoopModeler>
+	</MOVERS>
+	<PROTOCOLS>
+		<Add mover_name="modeler"/>
+	</PROTOCOLS>
+	<OUTPUT scorefxn="scorefxn"/>
+</ROSETTASCRIPTS>
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+core.scoring.etable: Starting energy table calculation
+core.scoring.etable: smooth_etable: changing atr/rep split to bottom of energy well
+core.scoring.etable: smooth_etable: spline smoothing lj etables (maxdis = 6)
+core.scoring.etable: smooth_etable: spline smoothing solvation etables (max_dis = 6)
+core.scoring.etable: Finished calculating energy tables.
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBPoly1D.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBFadeIntervals.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBEval.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/DonStrength.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/AccStrength.csv
+basic.io.database: Database file opened: scoring/score_functions/rama/fd/all.ramaProb
+basic.io.database: Database file opened: scoring/score_functions/rama/fd/prepro.ramaProb
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.all.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.gly.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.pro.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.valile.txt
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/P_AA
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/P_AA_n
+core.scoring.P_AA: shapovalov_lib::shap_p_aa_pp_smooth_level of 1( aka low_smooth ) got activated.
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/shapovalov/10deg/kappa131/a20.prop
+core.scoring.etable: Starting energy table calculation
+core.scoring.etable: smooth_etable: changing atr/rep split to bottom of energy well
+core.scoring.etable: smooth_etable: spline smoothing lj etables (maxdis = 6)
+core.scoring.etable: smooth_etable: spline smoothing solvation etables (max_dis = 6)
+core.scoring.etable: Finished calculating energy tables.
+basic.io.database: Database file opened: scoring/score_functions/PairEPotential/pdb_pair_stats_fine
+basic.io.database: Database file opened: scoring/score_functions/InterchainPotential/interchain_env_log.txt
+basic.io.database: Database file opened: scoring/score_functions/InterchainPotential/interchain_pair_log.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/env_log.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/cbeta_den.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/pair_log.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/cenpack_log.txt
+core.scoring.ramachandran: shapovalov_lib::shap_rama_smooth_level of 4( aka highest_smooth ) got activated.
+basic.io.database: Database file opened: scoring/score_functions/rama/shapovalov/kappa25/all.ramaProb
+protocols.jd2.parser.ScoreFunctionLoader: defined score function "scorefxn" with weights "rosetta/database/scoring/weights/ref2015.wts"
+protocols.jd2.parser.ScoreFunctionLoader: defined score function "scorefxn_cst" with weights "rosetta/database/scoring/weights/ref2015.wts"
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight coordinate_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight atom_pair_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight angle_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight dihedral_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight res_type_constraint to 1.5
+protocols.jd2.parser.TaskOperationLoader: Defined TaskOperation named "cli" of type InitializeFromCommandline
+protocols.jd2.parser.TaskOperationLoader: Defined TaskOperation named "resfile" of type ReadResfile
+protocols.jd2.parser.TaskOperationLoader: Defined TaskOperation named "repackonly" of type RestrictToRepacking
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+loops: Loops object initializing itself from pose-numbered loop file named inputs/loops. This functionality is soon to be deprecated.
+loops: [ WARNING ] LOOP formats were recently reconciled - with *some* backwards compatibility. Please check your definition files!
+loops: [ WARNING ] Please check that this is what you intended to read in: 
+loops: [ WARNING ] LOOP  begin  end  cut  skip_rate  extended
+loops: [ WARNING ] LOOP start: 26  stop: 51  cut: 51  size: 26  skip rate: 0  extended?: True
+loops: [ WARNING ] 
+protocols.RosettaScripts.util: Object modeler reading the following task_operations: Adding the following task operations
+cli resfile repackonly 
+basic.io.database: Database file opened: scoring/score_functions/SecondaryStructurePotential/phi.theta.36.HS.resmooth
+basic.io.database: Database file opened: scoring/score_functions/SecondaryStructurePotential/phi.theta.36.SS.resmooth
+LoopHashLibrary: HASHSIZE: 6
+LoopHashMap: Setting up hash_: Size:  6
+LoopHashMap: Setting up hash_: Size:  10
+LoopHashLibrary: HASHSIZE: 7
+LoopHashMap: Setting up hash_: Size:  7
+LoopHashMap: Setting up hash_: Size:  10
+LoopHashLibrary: HASHSIZE: 8
+LoopHashMap: Setting up hash_: Size:  8
+LoopHashMap: Setting up hash_: Size:  10
+LoopHashLibrary: HASHSIZE: 9
+LoopHashMap: Setting up hash_: Size:  9
+LoopHashMap: Setting up hash_: Size:  10
+LoopHashLibrary: HASHSIZE: 10
+LoopHashMap: Setting up hash_: Size:  10
+LoopHashMap: Setting up hash_: Size:  10
+LoopHashLibrary: HASHSIZE: 11
+LoopHashMap: Setting up hash_: Size:  11
+LoopHashMap: Setting up hash_: Size:  10
+LoopHashLibrary: HASHSIZE: 12
+LoopHashMap: Setting up hash_: Size:  12
+LoopHashMap: Setting up hash_: Size:  10
+LoopHashLibrary: HASHSIZE: 13
+LoopHashMap: Setting up hash_: Size:  13
+LoopHashMap: Setting up hash_: Size:  10
+LoopHashLibrary: HASHSIZE: 14
+LoopHashMap: Setting up hash_: Size:  14
+LoopHashMap: Setting up hash_: Size:  10
+LoopHashLibrary: Reading merged bbdb_ (BackboneDatabase)  with extras
+LoopHashLibrary: Reading inputs/loophash_db/backbone.db
+BackboneDB: Reading in proteins 0 to 25494 out of 25494 , partition: 1/1
+BackboneDB: Read in 25494 proteins
+BackboneDB: Data_ size 25494
+LoopHashLibrary: Reading loopdb (LoopHashDatabase)  with loop size 6
+LoopHashMap: Loophashmap range 0 25492
+LoopHashLibrary: Reading loopdb (LoopHashDatabase)  with loop size 7
+LoopHashMap: Loophashmap range 0 25492
+LoopHashLibrary: Reading loopdb (LoopHashDatabase)  with loop size 8
+LoopHashMap: Loophashmap range 0 25492
+LoopHashLibrary: Reading loopdb (LoopHashDatabase)  with loop size 9
+LoopHashMap: Loophashmap range 0 25492
+LoopHashLibrary: Reading loopdb (LoopHashDatabase)  with loop size 10
+LoopHashMap: Loophashmap range 0 25492
+LoopHashLibrary: Reading loopdb (LoopHashDatabase)  with loop size 11
+LoopHashMap: Loophashmap range 0 25492
+LoopHashLibrary: Reading loopdb (LoopHashDatabase)  with loop size 12
+LoopHashMap: Loophashmap range 0 25492
+LoopHashLibrary: Reading loopdb (LoopHashDatabase)  with loop size 13
+LoopHashMap: Loophashmap range 0 25492
+LoopHashLibrary: Reading loopdb (LoopHashDatabase)  with loop size 14
+LoopHashMap: Loophashmap range 0 25492
+LoopHashLibrary: Read MergedLoopHash Library from disk: 134 seconds 
+protocols.rosetta_scripts.RosettaScriptsParser: Defined mover named "modeler" of type LoopModeler
+protocols.rosetta_scripts.ParsedProtocol: ParsedProtocol mover with the following movers and filters
+protocols.rosetta_scripts.ParsedProtocol: added mover "modeler" with filter "true_filter"
+protocols.jd2.PDBJobInputter: PDBJobInputter::pose_from_job
+protocols.jd2.PDBJobInputter: filling pose from saved copy inputs/KSI_D38E.pdb
+protocols.rosetta_scripts.ParsedProtocol: =======================BEGIN MOVER LoopModeler - modeler=======================
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.import_pose.import_pose: File 'inputs/KSI_WT.pdb' automatically determined to be of type PDB
+core.chemical.GlobalResidueTypeSet: Finished initializing centroid residue type set.  Created 63 residue types
+core.chemical.GlobalResidueTypeSet: Total time to initialize 0.321808 seconds.
+protocols.loop_modeler.LoopModeler: Centroid Stage
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loop_modeling.LoopProtocol: sfxn_cycles:    3
+protocols.loop_modeling.LoopProtocol: temp_cycles:    3
+protocols.loop_modeling.LoopProtocol: mover_cycles:   2
+protocols.loop_modeling.LoopProtocol: ramp_sfxn_rep:  0
+protocols.loop_modeling.LoopProtocol: ramp_sfxn_rama: 0
+protocols.loop_modeling.LoopProtocol: ramp_temp:      1
+protocols.loop_modeling.LoopProtocol: initial_temp:   2
+protocols.loop_modeling.LoopProtocol: final_temp:     1
+protocols.loop_modeling.LoopProtocol: loop_movers:    KicMover
+protocols.loop_modeling.LoopProtocol: loop_movers:      FixedOffsetsPivots
+protocols.loop_modeling.LoopProtocol: loop_movers:      LoopHashPerturber
+protocols.loop_modeling.LoopProtocol: loop_movers:    MinimizationRefiner
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.optimization.LineMinimizer: [ ERROR ] Inaccurate G! step= 1.90735e-06 Deriv= -0.403098 Finite Diff= 1.76735
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.optimization.LineMinimizer: [ ERROR ] Inaccurate G! step= 1.90735e-06 Deriv= -0.278537 Finite Diff= 0.245207
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.optimization.LineMinimizer: [ ERROR ] Inaccurate G! step= 3.8147e-06 Deriv= -0.125582 Finite Diff= 1.20159
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.optimization.LineMinimizer: [ ERROR ] Inaccurate G! step= 3.05176e-07 Deriv= -3.68727 Finite Diff= 2.87487
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.optimization.LineMinimizer: [ ERROR ] Inaccurate G! step= 4.76837e-09 Deriv= -2.16852 Finite Diff= 0.516777
+core.optimization.LineMinimizer: [ ERROR ] Inaccurate G! step= 2.46969e-06 Deriv= -9.54322 Finite Diff= -0.931164
+core.optimization.Minimizer: Line search failed even after resetting Hessian; aborting at iter#6
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loop_modeler.LoopModeler: Centroid Time: 145 sec
+protocols.loop_modeler.LoopModeler: Fullatom Stage
+protocols.simple_moves.ReturnSidechainMover: [ WARNING ] ReturnSidechainMover: For residue 42 current residue of type THR (THR) does not match the stored residue type of SER (SER) -- skipping sidechain recovery.
+protocols.simple_moves.ReturnSidechainMover: [ WARNING ] ReturnSidechainMover: For residue 43 current residue of type PRO (PRO) does not match the stored residue type of GLU (GLU) -- skipping sidechain recovery.
+protocols.simple_moves.ReturnSidechainMover: [ WARNING ] ReturnSidechainMover: For residue 44 current residue of type GLU (GLU) does not match the stored residue type of PRO (PRO) -- skipping sidechain recovery.
+basic.io.database: Database file opened: scoring/score_functions/elec_cp_reps.dat
+core.scoring.elec.util: Read 40 countpair representative atoms
+core.pack.dunbrack.RotamerLibrary: shapovalov_lib_fixes_enable option is true.
+core.pack.dunbrack.RotamerLibrary: shapovalov_lib::shap_dun10_smooth_level of 1( aka lowest_smooth ) got activated.
+core.pack.dunbrack.RotamerLibrary: Binary rotamer library selected: rosetta/database/rotamer/shapovalov/StpDwn_0-0-0/Dunbrack10.lib.bin
+core.pack.dunbrack.RotamerLibrary: Using Dunbrack library binary file 'rosetta/database/rotamer/shapovalov/StpDwn_0-0-0/Dunbrack10.lib.bin'.
+core.pack.dunbrack.RotamerLibrary: Dunbrack 2010 library took 0.924226 seconds to load from binary
+core.pack.pack_rotamers: built 922 rotamers at 26 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 1062316 bytes
+core.pack.annealer.FixbbSimAnnealer: pack_rotamers run final: IVALFADDATVEEPVGTPERSGTAAI, best_energy: 25.4857
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.scoring.constraints.util: Constraint choice: inputs/restraints
+core.scoring.constraints.ConstraintsIO: read constraints from inputs/restraints
+core.scoring.constraints.ConstraintsIO: Read in 3 constraints
+protocols.loop_modeling.LoopProtocol: sfxn_cycles:    3
+protocols.loop_modeling.LoopProtocol: temp_cycles:    3
+protocols.loop_modeling.LoopProtocol: mover_cycles:   2
+protocols.loop_modeling.LoopProtocol: ramp_sfxn_rep:  1
+protocols.loop_modeling.LoopProtocol: ramp_sfxn_rama: 1
+protocols.loop_modeling.LoopProtocol: ramp_temp:      1
+protocols.loop_modeling.LoopProtocol: initial_temp:   1.5
+protocols.loop_modeling.LoopProtocol: final_temp:     0.5
+protocols.loop_modeling.LoopProtocol: loop_movers:    KicMover
+protocols.loop_modeling.LoopProtocol: loop_movers:      FixedOffsetsPivots
+protocols.loop_modeling.LoopProtocol: loop_movers:      LoopHashPerturber
+protocols.loop_modeling.LoopProtocol: loop_movers:    RepackingRefiner
+protocols.loop_modeling.LoopProtocol: loop_movers:    RotamerTrialsRefiner
+protocols.loop_modeling.LoopProtocol: loop_movers:    MinimizationRefiner
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.pack_rotamers: built 2540 rotamers at 252 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 2316928 bytes
+core.pack.annealer.FixbbSimAnnealer: pack_rotamers run final: MNTPEHMTAVVQRYVAALNAGDLDGIVALFADDATVEEPEGSQIRSGTAAIREFYANSLKLPLAVELTQEVRAVANEAAFAFIVSFEYQGRKTVVAPIDHFRFNGAGKVVSMRALFGEKNIHAGAMNTPEHMTAVVQRYVAALNAGDLDGIVALFADDATVENPVGSEPRSGTAAIREFYANSLKLPLAVELTQEVRAVANEAAFAFIVSFEYQGRKTVVAPIDHFRFNGAGKVVSMRALFGEKNIHAGAZZ, best_energy: -507.035
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for EQU
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: Added cutpoint variant to residue 51
+protocols.loops.loops_main: Added cutpoint variant to residue 52
+protocols.loops.loops_main: [ WARNING ] Residue 250 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 251 is not compatible with cutpoints; variant type not changed.
+protocols.loops.loops_main: [ WARNING ] Residue 252 is not compatible with cutpoints; variant type not changed.
+protocols.loop_modeler.LoopModeler: Fullatom Time: 558 sec
+protocols.loop_modeler.LoopModeler: Total Score: -540.292
+protocols.loop_modeler.LoopModeler: Chainbreak Score: 0.0207004
+protocols.loop_modeler.LoopModeler: Loop Backbone RMSD: 0.925175
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+basic.io.database: Database file opened: scoring/score_functions/hbonds/sp2_elec_params/HBPoly1D.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/sp2_elec_params/HBFadeIntervals.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/sp2_elec_params/HBEval.csv
+protocols.simple_filters.BuriedUnsatHbondFilter: BOUND: [1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0]
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+protocols.simple_filters.BuriedUnsatHbondFilter: BOUND: [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+protocols.loop_modeler.LoopModeler: Delta Buried Unsatisfied H-bonds: +5
+protocols.rosetta_scripts.ParsedProtocol: setting status to success
+protocols.jd2.JobDistributor: build_models_KSI_D38E_0001 reported success in 950 seconds
+protocols.jd2.JobDistributor: no more batches to process... 
+protocols.jd2.JobDistributor: 1 jobs considered, 1 jobs attempted in 953 seconds

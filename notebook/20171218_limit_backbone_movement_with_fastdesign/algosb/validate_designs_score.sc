@@ -1,0 +1,3 @@
+SEQUENCE: 
+SCORE: total_score chainbreak chainbreak_score delta_buried_unsats dslf_fa13    fa_atr    fa_dun   fa_elec fa_intra_rep fa_intra_sol_xover4              fa_rep              fa_sol hbond_bb_sc hbond_lr_bb    hbond_sc hbond_sr_bb lk_ball_wtd loop_backbone_rmsd              omega            p_aa_pp pro_close rama_prepro         ref yhh_planarity description 
+SCORE:    -850.575      0.000            0.010               8.000     0.000 -1444.660   244.355  -431.377        2.790              41.242             159.552             773.855     -31.662     -89.948     -38.283     -84.149     -24.348              1.190             16.371            -53.220     1.312     -10.995     118.419         0.196 validate_designs_design_models_KSI_D38E_0001_0001

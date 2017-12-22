@@ -1,0 +1,16 @@
+<ROSETTASCRIPTS>
+
+  <MOVERS>
+    <AtomTree name="foldtree" fold_tree_file="%%foldtree_file%%"/>
+    <SetTorsion name="perturb">
+      <Torsion residue="%%resi%%" torsion_name="phi" angle="%%perturb_angle%%"/>
+    </SetTorsion>
+  </MOVERS>
+
+  <PROTOCOLS>
+    <Add mover_name="foldtree"/>
+    <Add mover_name="perturb"/>
+  </PROTOCOLS>
+
+</ROSETTASCRIPTS>
+

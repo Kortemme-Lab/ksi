@@ -1,0 +1,517 @@
+core.init: Rosetta version: 2017.48.post.dev+98.master.ff3a0b4de42 ff3a0b4de427f5a12b4f6036e5fdb5bc455e10fd git@guybrush.ucsf.edu:kortemme-lab/rosetta.git 2017-11-28T14:16:06
+core.init: command: rosetta/source/bin/rosetta_scripts -database rosetta/database -in:file:s inputs/KSI_D38E.pdb -in:file:native inputs/KSI_WT.pdb -out:prefix design_wt_ -out:overwrite -parser:protocol inputs/design_models.xml -parser:script_vars wts_file=rosetta/database/scoring/weights/ref2015.wts cst_file=inputs/restraints relax_cycles=2 -packing:resfile inputs/resfile -relax:constrain_relax_to_start_coords yes -extra_res_fa inputs/EQU.fa.params -extra_res_cen inputs/EQU.cen.params
+core.init: 'RNG device' seed mode, using '/dev/urandom', seed=1997236353 seed_offset=0 real_seed=1997236353
+core.init.random: RandomGenerator:init: Normal mode, seed=1997236353 RG_type=mt19937
+protocols.jd2.PDBJobInputter: Instantiate PDBJobInputter
+protocols.jd2.PDBJobInputter: PDBJobInputter::fill_jobs
+protocols.jd2.PDBJobInputter: pushed inputs/KSI_D38E.pdb nstruct index 1
+core.chemical.GlobalResidueTypeSet: Finished initializing fa_standard residue type set.  Created 574 residue types
+core.chemical.GlobalResidueTypeSet: Total time to initialize 0.569005 seconds.
+core.import_pose.import_pose: File 'inputs/KSI_WT.pdb' automatically determined to be of type PDB
+protocols.evaluation.ChiWellRmsdEvaluatorCreator: Evaluation Creator active ... 
+protocols.jd2.PDBJobInputter: PDBJobInputter::pose_from_job
+protocols.jd2.PDBJobInputter: filling pose from PDB inputs/KSI_D38E.pdb
+core.import_pose.import_pose: File 'inputs/KSI_D38E.pdb' automatically determined to be of type PDB
+protocols.rosetta_scripts.RosettaScriptsParser: dock_design_filename=inputs/design_models.xml
+protocols.rosetta_scripts.RosettaScriptsParser: Variable substitution will occur with the following values: '%%cst_file%%'='inputs/restraints';  '%%relax_cycles%%'='2';  '%%wts_file%%'='rosetta/database/scoring/weights/ref2015.wts';  
+protocols.rosetta_scripts.RosettaScriptsParser: Substituted script:
+<ROSETTASCRIPTS>
+
+  <SCOREFXNS>
+    <ScoreFunction name="scorefxn" weights="rosetta/database/scoring/weights/ref2015.wts"/>
+    <ScoreFunction name="scorefxn_cst" weights="rosetta/database/scoring/weights/ref2015.wts">
+      <Reweight scoretype="coordinate_constraint" weight="1.0"/>
+      <Reweight scoretype="atom_pair_constraint" weight="1.0"/>
+      <Reweight scoretype="angle_constraint" weight="1.0"/>
+      <Reweight scoretype="dihedral_constraint" weight="1.0"/>
+      <Reweight scoretype="res_type_constraint" weight="1.5"/>
+    </ScoreFunction>
+  </SCOREFXNS>
+
+  <TASKOPERATIONS>
+    <InitializeFromCommandline name="cli"/>
+    <ReadResfile name="resfile"/>
+  </TASKOPERATIONS>
+
+  <MOVERS>
+    <FavorNativeResidue name="favornative" />
+    <ConstraintSetMover name="cst" cst_fa_file="inputs/restraints"/>
+    <FastDesign name="fastdesign"
+        task_operations="cli,resfile"
+        scorefxn="scorefxn_cst"
+        repeats="2"/>
+  </MOVERS>
+
+  <PROTOCOLS>
+    <Add mover_name="favornative"/>
+    <Add mover_name="cst"/> <!-- Constraints added via mover because command-line is ignored -->
+    <Add mover_name="fastdesign"/>
+  </PROTOCOLS>
+
+  <OUTPUT scorefxn="scorefxn"/>
+
+</ROSETTASCRIPTS>
+
+protocols.rosetta_scripts.RosettaScriptsParser: Generating XML Schema for rosetta_scripts...
+protocols.rosetta_scripts.RosettaScriptsParser: ...done
+protocols.rosetta_scripts.RosettaScriptsParser: Initializing schema validator...
+protocols.rosetta_scripts.RosettaScriptsParser: ...done
+protocols.rosetta_scripts.RosettaScriptsParser: Validating input script...
+protocols.rosetta_scripts.RosettaScriptsParser: ...done
+protocols.rosetta_scripts.RosettaScriptsParser: Parsed script:
+<ROSETTASCRIPTS>
+	<SCOREFXNS>
+		<ScoreFunction name="scorefxn" weights="rosetta/database/scoring/weights/ref2015.wts"/>
+		<ScoreFunction name="scorefxn_cst" weights="rosetta/database/scoring/weights/ref2015.wts">
+			<Reweight scoretype="coordinate_constraint" weight="1.0"/>
+			<Reweight scoretype="atom_pair_constraint" weight="1.0"/>
+			<Reweight scoretype="angle_constraint" weight="1.0"/>
+			<Reweight scoretype="dihedral_constraint" weight="1.0"/>
+			<Reweight scoretype="res_type_constraint" weight="1.5"/>
+		</ScoreFunction>
+	</SCOREFXNS>
+	<TASKOPERATIONS>
+		<InitializeFromCommandline name="cli"/>
+		<ReadResfile name="resfile"/>
+	</TASKOPERATIONS>
+	<MOVERS>
+		<FavorNativeResidue name="favornative"/>
+		<ConstraintSetMover cst_fa_file="inputs/restraints" name="cst"/>
+		<FastDesign name="fastdesign" repeats="2" scorefxn="scorefxn_cst" task_operations="cli,resfile"/>
+	</MOVERS>
+	<PROTOCOLS>
+		<Add mover_name="favornative"/>
+		<Add mover_name="cst"/>
+		<Add mover_name="fastdesign"/>
+	</PROTOCOLS>
+	<OUTPUT scorefxn="scorefxn"/>
+</ROSETTASCRIPTS>
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+core.scoring.etable: Starting energy table calculation
+core.scoring.etable: smooth_etable: changing atr/rep split to bottom of energy well
+core.scoring.etable: smooth_etable: spline smoothing lj etables (maxdis = 6)
+core.scoring.etable: smooth_etable: spline smoothing solvation etables (max_dis = 6)
+core.scoring.etable: Finished calculating energy tables.
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBPoly1D.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBFadeIntervals.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBEval.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/DonStrength.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/AccStrength.csv
+basic.io.database: Database file opened: scoring/score_functions/rama/fd/all.ramaProb
+basic.io.database: Database file opened: scoring/score_functions/rama/fd/prepro.ramaProb
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.all.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.gly.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.pro.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.valile.txt
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/P_AA
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/P_AA_n
+core.scoring.P_AA: shapovalov_lib::shap_p_aa_pp_smooth_level of 1( aka low_smooth ) got activated.
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/shapovalov/10deg/kappa131/a20.prop
+core.scoring.etable: Starting energy table calculation
+core.scoring.etable: smooth_etable: changing atr/rep split to bottom of energy well
+core.scoring.etable: smooth_etable: spline smoothing lj etables (maxdis = 6)
+core.scoring.etable: smooth_etable: spline smoothing solvation etables (max_dis = 6)
+core.scoring.etable: Finished calculating energy tables.
+basic.io.database: Database file opened: scoring/score_functions/PairEPotential/pdb_pair_stats_fine
+basic.io.database: Database file opened: scoring/score_functions/InterchainPotential/interchain_env_log.txt
+basic.io.database: Database file opened: scoring/score_functions/InterchainPotential/interchain_pair_log.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/env_log.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/cbeta_den.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/pair_log.txt
+basic.io.database: Database file opened: scoring/score_functions/EnvPairPotential/cenpack_log.txt
+core.scoring.ramachandran: shapovalov_lib::shap_rama_smooth_level of 4( aka highest_smooth ) got activated.
+basic.io.database: Database file opened: scoring/score_functions/rama/shapovalov/kappa25/all.ramaProb
+protocols.jd2.parser.ScoreFunctionLoader: defined score function "scorefxn" with weights "rosetta/database/scoring/weights/ref2015.wts"
+protocols.jd2.parser.ScoreFunctionLoader: defined score function "scorefxn_cst" with weights "rosetta/database/scoring/weights/ref2015.wts"
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight coordinate_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight atom_pair_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight angle_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight dihedral_constraint to 1
+protocols.jd2.parser.ScoreFunctionLoader:  setting scorefxn_cst weight res_type_constraint to 1.5
+protocols.jd2.parser.TaskOperationLoader: Defined TaskOperation named "cli" of type InitializeFromCommandline
+protocols.jd2.parser.TaskOperationLoader: Defined TaskOperation named "resfile" of type ReadResfile
+protocols.protein_interface_design.movers.FavorNativeResiduePreCycle: Setting res_type_constraint weight in scorefxn REF2015 to 1.5
+Setting res_type_constraint weight in scorefxn commandline to 1.5
+Setting res_type_constraint weight in scorefxn score4L to 1.5
+Setting res_type_constraint weight in scorefxn score_docking_low to 1.5
+Setting res_type_constraint weight in scorefxn scorefxn to 1.5
+Setting res_type_constraint weight in scorefxn soft_rep to 1.5
+applying favor native residue to pose with weight: 1.5
+protocols.rosetta_scripts.RosettaScriptsParser: Defined mover named "favornative" of type FavorNativeResidue
+protocols.simple_moves.ConstraintSetMover: of type ConstraintSetMover with constraint file: 
+protocols.simple_moves.ConstraintSetMover: of type ConstraintSetMover with fullatom constraint file: inputs/restraints
+protocols.rosetta_scripts.RosettaScriptsParser: Defined mover named "cst" of type ConstraintSetMover
+protocols.relax.FastRelax: ================== Using default script ==================
+protocols.RosettaScripts.util: Object fastdesign reading the following task_operations: Adding the following task operations
+cli resfile 
+protocols.relax.FastRelax: ================== Using default script ==================
+protocols.rosetta_scripts.RosettaScriptsParser: Defined mover named "fastdesign" of type FastDesign
+protocols.rosetta_scripts.ParsedProtocol: ParsedProtocol mover with the following movers and filters
+protocols.rosetta_scripts.ParsedProtocol: added mover "favornative" with filter "true_filter"
+protocols.rosetta_scripts.ParsedProtocol: added mover "cst" with filter "true_filter"
+protocols.rosetta_scripts.ParsedProtocol: added mover "fastdesign" with filter "true_filter"
+protocols::checkpoint: Deleting checkpoints of FastRelax
+protocols.jd2.PDBJobInputter: PDBJobInputter::pose_from_job
+protocols.jd2.PDBJobInputter: filling pose from saved copy inputs/KSI_D38E.pdb
+protocols.rosetta_scripts.ParsedProtocol: =======================BEGIN MOVER FavorNativeResidue - favornative=======================
+protocols.rosetta_scripts.ParsedProtocol: =======================BEGIN MOVER ConstraintSetMover - cst=======================
+core.scoring.constraints.ConstraintsIO: read constraints from inputs/restraints
+core.scoring.constraints.ConstraintsIO: Read in 3 constraints
+protocols.rosetta_scripts.ParsedProtocol: =======================BEGIN MOVER FastDesign - fastdesign=======================
+core.pack.task: Packer task: initialize from command line() 
+protocols.denovo_design.movers.FastDesign: #Packer_Task
+protocols.denovo_design.movers.FastDesign: 
+protocols.denovo_design.movers.FastDesign: resid	pack?	design?	allowed_aas
+protocols.denovo_design.movers.FastDesign: 1	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 2	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 3	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 4	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 5	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 6	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 7	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 8	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 9	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 10	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 11	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 12	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 13	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 14	TRUE	FALSE	TYR
+protocols.denovo_design.movers.FastDesign: 15	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 16	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 17	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 18	TRUE	FALSE	LEU
+protocols.denovo_design.movers.FastDesign: 19	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 20	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 21	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 22	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 23	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 24	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 25	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 26	TRUE	FALSE	ILE
+protocols.denovo_design.movers.FastDesign: 27	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 28	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 29	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 30	TRUE	FALSE	PHE
+protocols.denovo_design.movers.FastDesign: 31	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 32	TRUE	FALSE	ASP
+protocols.denovo_design.movers.FastDesign: 33	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 34	TRUE	FALSE	ALA
+protocols.denovo_design.movers.FastDesign: 35	TRUE	FALSE	THR
+protocols.denovo_design.movers.FastDesign: 36	TRUE	TRUE	ALA,ASP,GLU,PHE,GLY,ILE,LYS,LEU,MET,ASN,PRO,GLN,ARG,SER,THR,VAL,TYR
+protocols.denovo_design.movers.FastDesign: 37	TRUE	FALSE	GLU
+protocols.denovo_design.movers.FastDesign: 38	TRUE	FALSE	GLU
+protocols.denovo_design.movers.FastDesign: 39	TRUE	TRUE	ALA,ASP,GLU,PHE,GLY,ILE,LYS,LEU,MET,ASN,PRO,GLN,ARG,SER,THR,VAL,TYR
+protocols.denovo_design.movers.FastDesign: 40	TRUE	TRUE	ALA,ASP,GLU,PHE,GLY,ILE,LYS,LEU,MET,ASN,PRO,GLN,ARG,SER,THR,VAL,TYR
+protocols.denovo_design.movers.FastDesign: 41	TRUE	TRUE	ALA,ASP,GLU,PHE,GLY,ILE,LYS,LEU,MET,ASN,PRO,GLN,ARG,SER,THR,VAL,TYR
+protocols.denovo_design.movers.FastDesign: 42	TRUE	TRUE	ALA,ASP,GLU,PHE,GLY,ILE,LYS,LEU,MET,ASN,PRO,GLN,ARG,SER,THR,VAL,TYR
+protocols.denovo_design.movers.FastDesign: 43	TRUE	TRUE	ALA,ASP,GLU,PHE,GLY,ILE,LYS,LEU,MET,ASN,PRO,GLN,ARG,SER,THR,VAL,TYR
+protocols.denovo_design.movers.FastDesign: 44	TRUE	TRUE	ALA,ASP,GLU,PHE,GLY,ILE,LYS,LEU,MET,ASN,PRO,GLN,ARG,SER,THR,VAL,TYR
+protocols.denovo_design.movers.FastDesign: 45	TRUE	TRUE	ALA,ASP,GLU,PHE,GLY,ILE,LYS,LEU,MET,ASN,PRO,GLN,ARG,SER,THR,VAL,TYR
+protocols.denovo_design.movers.FastDesign: 46	TRUE	FALSE	SER
+protocols.denovo_design.movers.FastDesign: 47	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 48	TRUE	FALSE	THR
+protocols.denovo_design.movers.FastDesign: 49	TRUE	FALSE	ALA
+protocols.denovo_design.movers.FastDesign: 50	TRUE	FALSE	ALA
+protocols.denovo_design.movers.FastDesign: 51	TRUE	FALSE	ILE
+protocols.denovo_design.movers.FastDesign: 52	TRUE	FALSE	ARG
+protocols.denovo_design.movers.FastDesign: 53	TRUE	TRUE	ASP,GLU,LEU,MET,ASN,GLN,ARG,SER,THR,TYR
+protocols.denovo_design.movers.FastDesign: 54	TRUE	FALSE	PHE
+protocols.denovo_design.movers.FastDesign: 55	TRUE	FALSE	TYR
+protocols.denovo_design.movers.FastDesign: 56	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 57	TRUE	FALSE	ASN
+protocols.denovo_design.movers.FastDesign: 58	TRUE	FALSE	SER
+protocols.denovo_design.movers.FastDesign: 59	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 60	TRUE	FALSE	LYS
+protocols.denovo_design.movers.FastDesign: 61	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 62	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 63	TRUE	FALSE	LEU
+protocols.denovo_design.movers.FastDesign: 64	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 65	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 66	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 67	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 68	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 69	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 70	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 71	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 72	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 73	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 74	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 75	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 76	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 77	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 78	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 79	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 80	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 81	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 82	TRUE	FALSE	PHE
+protocols.denovo_design.movers.FastDesign: 83	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 84	TRUE	FALSE	VAL
+protocols.denovo_design.movers.FastDesign: 85	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 86	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 87	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 88	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 89	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 90	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 91	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 92	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 93	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 94	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 95	TRUE	FALSE	VAL
+protocols.denovo_design.movers.FastDesign: 96	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 97	TRUE	FALSE	PRO
+protocols.denovo_design.movers.FastDesign: 98	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 99	TRUE	FALSE	ASP
+protocols.denovo_design.movers.FastDesign: 100	TRUE	FALSE	HIS,HIS_D
+protocols.denovo_design.movers.FastDesign: 101	TRUE	FALSE	PHE
+protocols.denovo_design.movers.FastDesign: 102	TRUE	FALSE	ARG
+protocols.denovo_design.movers.FastDesign: 103	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 104	TRUE	FALSE	ASN
+protocols.denovo_design.movers.FastDesign: 105	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 106	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 107	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 108	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 109	TRUE	FALSE	VAL
+protocols.denovo_design.movers.FastDesign: 110	TRUE	FALSE	VAL
+protocols.denovo_design.movers.FastDesign: 111	TRUE	FALSE	SER
+protocols.denovo_design.movers.FastDesign: 112	TRUE	FALSE	MET
+protocols.denovo_design.movers.FastDesign: 113	TRUE	FALSE	ARG
+protocols.denovo_design.movers.FastDesign: 114	TRUE	FALSE	ALA
+protocols.denovo_design.movers.FastDesign: 115	TRUE	FALSE	LEU
+protocols.denovo_design.movers.FastDesign: 116	TRUE	FALSE	PHE
+protocols.denovo_design.movers.FastDesign: 117	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 118	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 119	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 120	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 121	TRUE	FALSE	ILE
+protocols.denovo_design.movers.FastDesign: 122	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 123	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 124	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 125	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 126	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 127	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 128	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 129	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 130	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 131	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 132	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 133	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 134	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 135	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 136	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 137	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 138	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 139	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 140	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 141	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 142	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 143	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 144	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 145	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 146	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 147	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 148	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 149	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 150	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 151	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 152	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 153	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 154	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 155	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 156	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 157	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 158	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 159	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 160	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 161	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 162	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 163	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 164	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 165	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 166	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 167	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 168	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 169	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 170	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 171	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 172	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 173	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 174	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 175	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 176	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 177	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 178	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 179	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 180	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 181	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 182	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 183	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 184	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 185	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 186	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 187	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 188	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 189	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 190	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 191	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 192	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 193	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 194	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 195	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 196	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 197	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 198	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 199	TRUE	TRUE	PHE,ILE,LEU,VAL,TYR
+protocols.denovo_design.movers.FastDesign: 200	TRUE	FALSE	ALA
+protocols.denovo_design.movers.FastDesign: 201	TRUE	FALSE	ASN
+protocols.denovo_design.movers.FastDesign: 202	TRUE	FALSE	GLU
+protocols.denovo_design.movers.FastDesign: 203	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 204	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 205	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 206	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 207	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 208	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 209	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 210	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 211	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 212	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 213	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 214	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 215	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 216	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 217	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 218	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 219	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 220	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 221	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 222	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 223	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 224	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 225	TRUE	FALSE	HIS,HIS_D
+protocols.denovo_design.movers.FastDesign: 226	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 227	TRUE	FALSE	ARG
+protocols.denovo_design.movers.FastDesign: 228	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 229	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 230	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 231	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 232	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 233	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 234	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 235	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 236	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 237	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 238	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 239	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 240	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 241	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 242	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 243	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 244	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 245	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 246	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 247	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 248	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 249	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 250	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 251	FALSE	FALSE	
+protocols.denovo_design.movers.FastDesign: 252	FALSE	FALSE	
+basic.io.database: Database file opened: scoring/score_functions/elec_cp_reps.dat
+core.scoring.elec.util: Read 40 countpair representative atoms
+core.pack.dunbrack.RotamerLibrary: shapovalov_lib_fixes_enable option is true.
+core.pack.dunbrack.RotamerLibrary: shapovalov_lib::shap_dun10_smooth_level of 1( aka lowest_smooth ) got activated.
+core.pack.dunbrack.RotamerLibrary: Binary rotamer library selected: rosetta/database/rotamer/shapovalov/StpDwn_0-0-0/Dunbrack10.lib.bin
+core.pack.dunbrack.RotamerLibrary: Using Dunbrack library binary file 'rosetta/database/rotamer/shapovalov/StpDwn_0-0-0/Dunbrack10.lib.bin'.
+core.pack.dunbrack.RotamerLibrary: Dunbrack 2010 library took 0.125402 seconds to load from binary
+protocols.relax.FastRelax: CMD: repeat  -513.515  0  0  0.55
+protocols.denovo_design.movers.FastDesign: [coordinate:atom_pair:angle:dihedral] = 1 : 1 : 1 : 1
+core.pack.task: Packer task: initialize from command line() 
+core.pack.pack_rotamers: built 2757 rotamers at 54 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating PDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 8387012 bytes
+protocols.relax.FastRelax: CMD: ramp_repack_min  -972.943  0.106651  0.106651  0.011
+protocols.denovo_design.movers.FastDesign: [coordinate:atom_pair:angle:dihedral] = 0.5 : 0.5 : 0.5 : 0.5
+core.pack.task: Packer task: initialize from command line() 
+core.pack.pack_rotamers: built 2544 rotamers at 54 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating PDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 7061092 bytes
+protocols.relax.FastRelax: CMD: ramp_repack_min  -896.936  0.12867  0.12867  0.1375
+protocols.denovo_design.movers.FastDesign: [coordinate:atom_pair:angle:dihedral] = 0 : 0 : 0 : 0
+core.pack.task: Packer task: initialize from command line() 
+core.pack.pack_rotamers: built 2417 rotamers at 54 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating PDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 6373376 bytes
+protocols.relax.FastRelax: CMD: ramp_repack_min  -927.192  0.613511  0.613511  0.3025
+protocols.denovo_design.movers.FastDesign: [coordinate:atom_pair:angle:dihedral] = 0 : 0 : 0 : 0
+core.pack.task: Packer task: initialize from command line() 
+core.pack.pack_rotamers: built 2253 rotamers at 54 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating PDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 5657808 bytes
+protocols.relax.FastRelax: CMD: ramp_repack_min  -849.649  0.600396  0.600396  0.55
+protocols.relax.FastRelax: MRP: 0  -849.649  -849.649  0.600396  0.600396  
+protocols.relax.FastRelax: CMD: accept_to_best  -849.649  0.600396  0.600396  0.55
+protocols.relax.FastRelax: CMD: endrepeat  -849.649  0.600396  0.600396  0.55
+protocols.denovo_design.movers.FastDesign: [coordinate:atom_pair:angle:dihedral] = 1 : 1 : 1 : 1
+core.pack.task: Packer task: initialize from command line() 
+core.pack.pack_rotamers: built 2904 rotamers at 54 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating PDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 9423372 bytes
+protocols.relax.FastRelax: CMD: ramp_repack_min  -972.522  0.110638  0.110638  0.011
+protocols.denovo_design.movers.FastDesign: [coordinate:atom_pair:angle:dihedral] = 0.5 : 0.5 : 0.5 : 0.5
+core.pack.task: Packer task: initialize from command line() 
+core.pack.pack_rotamers: built 2503 rotamers at 54 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating PDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 6890192 bytes
+protocols.relax.FastRelax: CMD: ramp_repack_min  -899.29  0.134083  0.134083  0.1375
+protocols.denovo_design.movers.FastDesign: [coordinate:atom_pair:angle:dihedral] = 0 : 0 : 0 : 0
+core.pack.task: Packer task: initialize from command line() 
+core.pack.pack_rotamers: built 2357 rotamers at 54 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating PDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 6148632 bytes
+protocols.relax.FastRelax: CMD: ramp_repack_min  -927.577  0.613096  0.613096  0.3025
+protocols.denovo_design.movers.FastDesign: [coordinate:atom_pair:angle:dihedral] = 0 : 0 : 0 : 0
+core.pack.task: Packer task: initialize from command line() 
+core.pack.pack_rotamers: built 2220 rotamers at 54 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating PDInteractionGraph
+core.pack.interaction_graph.interaction_graph_factory: IG: 5468436 bytes
+protocols.relax.FastRelax: CMD: ramp_repack_min  -848.428  0.576952  0.576952  0.55
+protocols.relax.FastRelax: MRP: 1  -848.428  -849.649  0.600396  0.600396  
+protocols.relax.FastRelax: CMD: accept_to_best  -848.428  0.576952  0.576952  0.55
+protocols.relax.FastRelax: CMD: endrepeat  -848.428  0.576952  0.576952  0.55
+protocols::checkpoint: Deleting checkpoints of FastRelax
+protocols.denovo_design.movers.FastDesign: 
+------------------------------------------------------------
+ Scores                       Weight   Raw Score Wghtd.Score
+------------------------------------------------------------
+ fa_atr                       1.000   -1448.156   -1448.156
+ fa_rep                       0.550     293.451     161.398
+ fa_sol                       1.000     779.937     779.937
+ fa_intra_rep                 0.005     558.086       2.790
+ fa_intra_sol_xover4          1.000      41.582      41.582
+ lk_ball_wtd                  1.000     -24.137     -24.137
+ fa_elec                      1.000    -431.849    -431.849
+ pro_close                    1.250       0.632       0.790
+ hbond_sr_bb                  1.000     -84.064     -84.064
+ hbond_lr_bb                  1.000     -90.579     -90.579
+ hbond_bb_sc                  1.000     -32.875     -32.875
+ hbond_sc                     1.000     -40.485     -40.485
+ dslf_fa13                    1.250       0.000       0.000
+ atom_pair_constraint         1.000       0.000       0.000
+ coordinate_constraint        1.000    2919.744    2919.744
+ angle_constraint             1.000       0.000       0.000
+ dihedral_constraint          1.000       0.000       0.000
+ omega                        0.400      39.015      15.606
+ fa_dun                       0.700     353.394     247.376
+ p_aa_pp                      0.600     -89.223     -53.534
+ yhh_planarity                0.625       0.327       0.204
+ ref                          1.000     119.333     119.333
+ rama_prepro                  0.450     -28.858     -12.986
+ res_type_constraint          1.500       0.000       0.000
+---------------------------------------------------
+ Total weighted score:                     2070.094
+protocols.rosetta_scripts.ParsedProtocol: setting status to success
+protocols.jd2.JobDistributor: design_wt_KSI_D38E_0001 reported success in 332 seconds
+protocols.jd2.JobDistributor: no more batches to process... 
+protocols.jd2.JobDistributor: 1 jobs considered, 1 jobs attempted in 332 seconds
+protocols.jd2.JobDistributor: [ WARNING ] The following options have been set, but have not yet been used:
+	-in:file:extra_res_cen inputs/EQU.cen.params
+
+protocols::checkpoint: Deleting checkpoints of FastRelax
