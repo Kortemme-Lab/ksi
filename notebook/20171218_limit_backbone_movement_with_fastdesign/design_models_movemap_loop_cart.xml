@@ -20,10 +20,8 @@
   <MOVERS>
     <FavorNativeResidue name="favornative" />
     <ConstraintSetMover name="cst" cst_fa_file="%%cst_file%%"/>
-    <!--Don't use extra rotamers for debugging.-->
-    <!--task_operations="cli,resfile,ex"-->
     <FastDesign name="fastdesign" 
-        task_operations="cli,resfile" repeats="1"
+        task_operations="cli,resfile,ex"
         scorefxn="scorefxn_cst"
         cartesian="yes"
     >

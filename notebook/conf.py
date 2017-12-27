@@ -64,6 +64,7 @@ exclude_patterns = [ #
         'build',
         'Thumbs.db',
         '.DS_Store',
+        '**/rosetta',  # I often symlink to rosetta...
 ]
 
 rst_epilog = ".. |br| raw:: html\n\n   <br />"

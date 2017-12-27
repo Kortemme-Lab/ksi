@@ -1,5 +1,18 @@
 #!/usr/bin/env python3
 
+"""\
+Calculate and report metrics for the FastDesign runs.
+
+Usage:
+    calc_rmsds.py [<keywords>...]
+
+Arguments:
+    <keywords>
+        Only report metrics for simulations with all of the given keywords in 
+        their names.
+"""
+
+import re, docopt
 import pandas as pd
 from prody import *
 from pylab import *
@@ -11,34 +24,44 @@ pd.set_option('display.width', get_terminal_size().columns)
 
 class Output:
     def __init__(self, path):
-        self.path = path
-        self.title = Path(path).stem.replace('_', ' ').title()
-        self.atoms = parsePDB(path)
-        self.bb = self.atoms.select('bb').copy()
-        self.ca = self.atoms.select('ca').copy()
-        self.loop = self.atoms.select('bb resnum 26:51').copy()
+        self.path = Path(path)
+        self.slug = self.path.name.split('.')[0]
+        self.title = self.slug.replace('_', ' ').upper()
+
+        # Don't try to parse the file if it doesn't exist.  This makes it 
+        # easier for me to analyze data before all the runs have finished.
+        if self.path.exists():
+            self.atoms = parsePDB(path)
+            self.bb = self.atoms.select('bb')
 
 
 reference = ref = \
-        Output('e38_lig_dimer.pdb')
+        Output('alfa.pdb.gz')
 designs = [ #
-        Output('outputs/vanilla_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_no_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_none_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_yes_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_yes_ramp_no_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_yes_ramp_yes_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_yes_movemap_cli_fixed_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_yes_movemap_cli_loop_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_yes_movemap_xml_fixed_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_yes_movemap_xml_loop_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_yes_movemap_xml_loop_foldtree_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_no_movemap_xml_loop_foldtree_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_yes_movemap_xml_loop_cart_e38_lig_dimer.pdb'),
-        Output('outputs/restrain_no_movemap_xml_loop_cart_e38_lig_dimer.pdb'),
+        Output('outputs/vanilla.alfa.pdb'),
+        Output('outputs/restrain_no.alfa.pdb'),
+        Output('outputs/restrain_none.alfa.pdb'),
+        Output('outputs/restrain_yes.alfa.pdb'),
+        Output('outputs/restrain_yes_ramp_no.alfa.pdb'),
+        Output('outputs/restrain_yes_ramp_yes.alfa.pdb'),
+        Output('outputs/restrain_yes_movemap_cli_fixed.alfa.pdb'),
+        Output('outputs/restrain_yes_movemap_cli_loop.alfa.pdb'),
+        Output('outputs/restrain_yes_movemap_xml_fixed.alfa.pdb'),
+        Output('outputs/restrain_yes_movemap_xml_loop.alfa.pdb'),
+        Output('outputs/restrain_yes_movemap_xml_loop_foldtree.alfa.pdb'),
+        Output('outputs/restrain_no_movemap_xml_loop_foldtree.alfa.pdb'),
+        Output('outputs/restrain_yes_movemap_xml_loop_cart.alfa.pdb'),
+        Output('outputs/restrain_no_movemap_xml_loop_cart.alfa.pdb'),
+        Output('outputs/restrain_yes_movemap_xml_loop_foldtree_cart.alfa.pdb'),
+        Output('outputs/restrain_no_movemap_xml_loop_foldtree_cart.alfa.pdb'),
 ]
 
 # Calculate RMSDs without superimposition.
+
+def pick_designs(designs, terms):
+    for design in designs:
+        if all([x in design.slug for x in terms]):
+            yield design
 
 def calc_rmsd_for_subset(a, b, sele):
     return calcRMSD(a.atoms.select(sele), b.atoms.select(sele))
@@ -62,23 +85,33 @@ def calc_rmsd_for_subset_manually(a, b, sele):
 
     return np.sqrt(msd)
 
+def parse_runtime(design):
+    path = design.path.parent / f'{design.slug}.log'
+    time_pattern = re.compile(r'protocols.jd2.JobDistributor: \d+ jobs considered, \d+ jobs attempted in (\d+) seconds')
 
-# Define different sets of residues to compare.
+    with path.open() as file:
+        for line in file:
+            time_match = time_pattern.match(line)
+            if time_match:
+                return int(time_match.group(1))
 
-bb = 'bb'  # Could also try using 'ca'
-loop_a, loop_b = '26to51', '198to203'
-loops = f'resnum {loop_a} {loop_b}'
-selections = [ #
-    ('Everything',    f'{bb}'),
-    ('Chain A Loop',  f'{bb} resnum {loop_a}'),
-    ('Chain B Loop',  f'{bb} resnum {loop_b}'),
-    ('Both Loops',    f'{bb} {loops}'),
-    ('Scaffold-only', f'{bb} not {loops}'),
-]
+def parse_scoreterm(design, term):
+    path = design.path.parent / f'{design.slug}.score.sc'
 
-for design in designs:
-    print(design.title)
+    with path.open() as file:
+        _, header, body = file.readlines()
 
+    header = header.split()
+    body = body.split()
+
+    try:
+        i = header.index(term)
+        return float(body[i])
+    except ValueError:
+        return None
+
+
+def tabulate_rmsds(design):
     rows = {
         name: {
             'name': name,
@@ -97,12 +130,44 @@ for design in designs:
         rows[name]['aligned'] = calc_rmsd_for_subset(ref, design, sele)
 
     rows = list(rows.values())
-    df = pd.DataFrame(
-            rows,
-            columns=list(rows[0].keys()),
-    )
-    print(df)
-    print()
+    return pd.DataFrame(rows, columns=list(rows[0].keys()))
+
+def tabulate_metrics(design):
+    metrics = [
+            ('runtime', parse_runtime(design)),
+            ('total_score', parse_scoreterm(design, 'total_score')),
+            ('coord_cst', parse_scoreterm(design, 'coordinate_constraint')),
+            ('chainbreak', parse_scoreterm(design, 'chainbreak')),
+            ('cart_bonded', parse_scoreterm(design, 'cart_bonded')),
+    ]
+    metrics = [(k,v) for k,v in metrics if v is not None]
+
+    return pd.DataFrame(metrics, columns=['metric', 'value'])
+
+
+
+args = docopt.docopt(__doc__)
+
+# Define different sets of residues to compare.
+
+bb = 'bb'  # Could also try using 'ca'
+loop_a, loop_b = '26to51', '198to203'
+loops = f'resnum {loop_a} {loop_b}'
+selections = [ #
+    ('Everything',    f'{bb}'),
+    ('Chain A Loop',  f'{bb} resnum {loop_a}'),
+    ('Chain B Loop',  f'{bb} resnum {loop_b}'),
+    ('Scaffold-only', f'{bb} not {loops}'),
+]
+
+for design in pick_designs(designs, args['<keywords>']):
+    print(design.title); print()
+
+    rmsds = tabulate_rmsds(design)
+    metrics = tabulate_metrics(design)
+
+    print(rmsds); print()
+    print(metrics); print()
 
 
 

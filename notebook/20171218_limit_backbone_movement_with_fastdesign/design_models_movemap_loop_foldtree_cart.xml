@@ -9,7 +9,6 @@
       <Reweight scoretype="dihedral_constraint" weight="1.0"/>
       <Reweight scoretype="res_type_constraint" weight="1.5"/>
       <Reweight scoretype="chainbreak" weight="100.0"/>
-      <Reweight scoretype="cart_bonded" weight="0.5"/>
     </ScoreFunction>
   </SCOREFXNS>
 
@@ -22,19 +21,28 @@
   <MOVERS>
     <FavorNativeResidue name="favornative" />
     <ConstraintSetMover name="cst" cst_fa_file="%%cst_file%%"/>
-    <!--Don't use extra rotamers for debugging.-->
-    <!--task_operations="cli,resfile,ex"-->
-    <FastDesign name="fastdesign"
-        task_operations="cli,resfile" repeats="1"
+    <AtomTree name="foldtree" fold_tree_file="%%foldtree_file%%"/>
+    <AddChainBreak name="break_a" resnum="32" change_foldtree="no"/>
+    <AddChainBreak name="break_b" resnum="202" change_foldtree="no"/>
+    <FastDesign name="fastdesign" 
+        task_operations="cli,resfile,ex"
         scorefxn="scorefxn_cst"
         cartesian="yes"
-    />
+    >
+      <MoveMap bb="no" chi="yes" jump="no">
+         <Span begin="26"  end="51"  chi="yes" bb="yes"/>
+         <Span begin="198" end="203" chi="yes" bb="yes"/>
+      </MoveMap>
+    </FastDesign>
   </MOVERS>
 
   <PROTOCOLS>
     <Add mover_name="favornative"/>
-    <Add mover_name="cst"/> <!-- Constraints added via mover because the -->
-    <Add mover_name="fastdesign"/>         <!-- command-line is ignored. -->
+    <Add mover_name="cst"/> <!-- Constraints added via mover because command-line is ignored -->
+    <Add mover_name="foldtree"/>
+    <Add mover_name="break_a"/>
+    <Add mover_name="break_b"/>
+    <Add mover_name="fastdesign"/>
   </PROTOCOLS>
 
   <OUTPUT scorefxn="scorefxn_cst"/>
