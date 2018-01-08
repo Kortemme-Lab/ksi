@@ -7,3 +7,4 @@ Rescue KSI D38E
    ideas_and_feedback.rst
    unexpected_observations.rst
    {notebook_entries}
+   glossary.rst
