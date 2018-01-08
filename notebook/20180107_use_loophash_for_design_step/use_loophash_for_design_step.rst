@@ -78,9 +78,10 @@ Results
 
   .. figure:: turns_both_views.png
 
-     The input turn and the 10 models built by LoopHash.  (a) Side view.  (b) 
-     Top view.  Every model seems to be more or less a Type 1 turn (based on 
-     the direction the C=O bond in the middle peptide is facing).
+     The input turn (green) and the 10 models built by LoopHash (all other 
+     colors).  (a) Side view.  (b) Top view.  Every model seems to be more or 
+     less a Type 1 turn (based on the direction the C=O bond in the middle 
+     peptide is facing).
 
 - Including fullatom mode (by providing the `relax_mover` and `nfullatom` 
   options) for some reason causes the structure to fly open.  The structures 
