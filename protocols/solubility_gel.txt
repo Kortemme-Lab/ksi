@@ -1,0 +1,97 @@
+Growth & induction
+==================
+0. Inoculate 3 mL LB + Carb cultures with 3 µL o/n.
+
+1. Grow at 37 and start checking the OD after about 
+   2-3 hours (earlier is safer since it'll overshoot 
+   quickly). Wait until it hits about 0.6. 
+
+2. When the OD reachers ~0.6, could you do me a favor 
+   and make a glycerol stock? I should have 50% 
+   glycerol on my bench in a 50 mL falcon tube. Just 
+   make a 50/50 mix of cells and 50% glycerol (25% 
+   final) in a cryotube for each mutant. 
+
+3. At OD 0.6, induce with 500 uM IPTG (1.5 µL 1M 
+   IPTG) and move to 18°C.  Incubate overnight.
+
+Lysis
+=====
+1. Spin down the culture in 1.6 mL microcentrifuge 
+   tubes (you'll probably have to split each mutant 
+   into two tubes). 
+
+2. Make a 1x solution (10-fold dilution into water) 
+   of BugBuster. The BugBuster is on my bench, and 
+   the manual is attached just in case.
+
+3. Add 500 uL 1x BugBuster to each pellet. If you 
+   split the cells in step 1, you can add 500 uL to 
+   one of the tubes, then transfer it to resuspend 
+   the other tube. 
+
+4. Incubate at RT for 10-20 minutes. 
+
+5. Spin at 16000 x g for 20 min at 4C. 
+
+6. Save the supernatent in a new tube, and resuspend 
+   the pellet in 500 uL water 
+
+Gel
+===
+1. Prepare the Laemmli reagent; take 450 uL of the 
+   Laemmli reagent (blue loading dye) and add 50 uL 
+   beta-mercaptoethanol. You can ask Chris for the 
+   loading dye if you don't have any (I think I just 
+   ran out). 
+
+2. Dilute soluble and insoluble lysate fractions 
+   10-fold in water. 
+
+3. In PCR tubes, mix 5 uL of your loading buffer with 
+   15 uL diluted sample. 
+
+4. Grab 1 uL of pure WT KSI, which is in the large 
+   fridge on my shelf in a 50 mL falcon tube, and mix 
+   it with 5 uL loading buffer and 14 uL water. 
+
+5. Incubate these at 95C for 10 minutes. 
+
+6. Load samples + ladder on a 12-lane 4-15% gel (not 
+   100% sure about the percentages but you should use 
+   the gradient gel, not the pure 10% gel). 
+
+7. Run at ~180 volts for 30 minutes, or until the dye 
+   reaches the edge. 
+
+8. The Coommassie is on my bench. 
+
+Staining
+========
+1. Rinse the gel a few times in nanopure water
+
+2. Submerge gel once again in water, then microwave 
+   for 1 minute
+
+3. Wait 1-2 minutes
+
+4. Drain water and add Coommassie. Microwave for 1 
+   minutes. 
+
+5. The longer you wait here the better, but with the 
+   microwave protocol you should only need ~10 
+   minutes. 
+
+6. Drain Coommassie into the "Used Commassie" 
+   container, then rinse the gel a few times in 
+   nanopure water. 
+
+7. Add destaining solution. If you want to see the 
+   results quickly, microwave for a minute, wait a 
+   while (10 minutes), then drain into the methanol 
+   waste and add more destaining solution; otherwise, 
+   leave overnight. You can also take a kim wipe and 
+   tie it up and place it in with your gel, but this 
+   can cause uneven destaining if it has too much 
+   contact with the gel. 
+
