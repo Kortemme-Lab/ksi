@@ -1,0 +1,29 @@
+B. Refold and purify enzyme
+---------------------------
+1. Thaw cells if frozen above
+2. Lyse cells by sonication:
+    - 20s on, 20s off
+    - 3 min total on time
+    - 35% tip amplitude
+3. Centrifuge at 20,000 rpm/20'/4°C.
+4. Discard supernatant
+5. Solubilize pellet in 25 mL buffer #2.
+6. Centrifuge at 8,000g/10'/4°C.
+7. Remove 100 uL aliquot of supernatant for SDS-PAGE, 
+   then discard rest of supernatant
+8. Solubilize pellet in 25 mL of buffer #3.
+9. Centrifuge at 8,000g/5'/4°C. 
+10. Discard supernatant.
+11. Repeat steps 8-10 at least 2x, or until 
+    supernatant clear.
+12. Solubilize pellet in 25 mL of buffer #4 to remove 
+    detergent.
+13. Centrifuge at 8,000g/5'/4°C. 
+14. Discard supernatant.
+15. Repeat steps 12-14 at least 2x, or until 
+    supernatant clear.
+16. Freeze purified inclusion bodies at -20°C to 
+    preserve for ~1 week or at -80°C to preserve for 
+    longer than that.
+
+vim: tw=53

@@ -1,0 +1,42 @@
+C. Solubilize inclusion bodies & refold enzyme
+----------------------------------------------
+1. Add 10 mL buffer #5 with fresh DTT (100 uL 1M 
+   DTT).  Shake for 30' at 4°C to dissolve.
+2. Centrifuge at 20,000 rpm/20'/4°C.
+3. Add supernatant to 200 mL buffer #6 to bring the 
+   urea concentration down to 400 mM.  Stir for 1h.
+4. Filter with 0.4 um filter (can use 250 mL filter 
+   bottle, or syringes).  If filtering is too hard,
+   you may need to centrifuge at 20,000g/20'/4°C to 
+   remove most of the precipitate.
+5. Save 100 uL aliquot of refolded material for 
+   SDS-PAGE.
+6. Pre-equilibrate 5-10 mL deoxycholate affinity 
+   column with buffer #6.
+7. Apply filtered refolded enzyme to deoxycholate 
+   column by gravity at 4°C.  Save 100 uL aliquot of 
+   flow-through for SDS-PAGE.
+8. Wash with 100 mL buffer #7.  Use a syringe or a 
+   vacuum to force the wash through the column.
+9. Wash with 50 mL buffer #6.  Use a syringe or a 
+   vacuum to force the wash through the column.
+10. Elute with 25 mL buffer #8.  Collect ~3 mL 
+    fractions.
+11. Check for fraction that contain protein using a 
+    mini-Bradford assay and pool those fractions that 
+    do.  Bring pooled volume to 6 mL by adding buffer 
+    #8 if necessary.
+12. Load on superose 12 size exclusion column:
+    a. Isocratic 1 mL/min 40 mM KPi, 1 mM EDTA, 2 mM 
+       DTT
+    b. 6 mL injection
+    c. 128 mL total flow
+    d. Collect 2 mL fractions after 40 min (so after 
+       40 mL flowthrough).
+13. Pool fractions containing protein (by 
+    absorbance).
+14. Concentrate in Amicon Ultra 10 kDa cutoff spin 
+    filter units at 3500 rpm/20'/4°C.
+15. Store concentrated enzyme at 4°C.
+
+vim: tw=53

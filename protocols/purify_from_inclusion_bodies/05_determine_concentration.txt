@@ -1,0 +1,27 @@
+D. Determine concentration
+--------------------------
+1. Determine protein concentration by recording 
+   (A280-A320) for a series of dilutions in 40 mM 
+   KPi, 6 M GuHCl, pH 7, and using ε=16860 M-1 cm-1 
+   for WT pKSI
+2. Typical protocol:
+    a. Goal is to get all absorbance values between 
+       0.05 - 1
+       (preferably 0.1 - 1).
+    b. Prepare 1:10 dilution of stock protein in 40 
+       mM KPi.
+    c. Prepare 0, 10, 20, 30, 40% dilutions of above 
+       stock in 40 mM KPi
+    d. Take 25 uL of each dilution, and add 75 uL of 
+       40 mM KPi, 8 M GuHCl, pH 7.
+    e. Record absorbance spectra from 240 – 400 nm, 
+       blanking with 25 uL 40 mM KPi + 75 uL 40 mM 
+       KPi, 8 M GuHCl.
+    f. For an original stock concentration of 2.5 mM 
+       WT pKSI, this method will give A280 ~ 0.1 for 
+       the lowest protein sample (1:400 net 
+       dilution). If protein of interest has smaller 
+       ε or expected concentration, adjust dilutions 
+       accordingly to get A280 between 0.05-1.
+
+vim: tw=53

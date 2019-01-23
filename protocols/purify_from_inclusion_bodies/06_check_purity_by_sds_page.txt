@@ -1,0 +1,48 @@
+E. Check purity by 15% Tris-glycine SDS-PAGE
+--------------------------------------------
+Typical lanes (heat all samples at 95°C/5 min before 
+loading, except marker):
+a. MW marker
+b. Pre-induction
+    i. Centrifuge 1 mL cells aliquot at 
+       14,000g/5'/4°C.
+    ii. Resuspend cells in 100 uL of 5x SB, and heat 
+        at 95 C for 5 min
+    iii. Load 10 uL of resuspended cells
+c. Post-induction: Prepare sample same as above.  
+   Load 10 uL.
+d. Lysate supernatant
+    i.   Centrifuge 100 uL cell lysate at 
+         14,000g/5'/4°C.
+    ii.  Transfer 100 uL of supernatant into fresh 
+         eppendorff tube.
+    iii. Load 5 uL of this supernatant + 5 uL 5x SB.
+e. Lysate pellet
+    i.   Resuspend pellet from part (d) above in 100 
+         uL of 20 mM NaPi, 7 M urea, pH 7.2 (or any 
+         high urea buffer)
+    ii.  Load 5 uL of this suspension + 5 uL 5x SB.
+f. 1% DOC wash: Load 5 uL of DOC wash + 5 uL 5x SB.
+g. Refolded enzyme, before affinity step: Load 15 uL 
+   + 5 uL 5x SB (note large loading volume due to 
+   huge dilution here).
+h. Affinity flowthrough: Load 15 uL + 5 uL 5x SB 
+   (again note large loading volume).
+i. Final protein
+    i.   If quantitated by UV/Vis, loading 10 uL of 
+         50-100 uM pure protein solution (0.5-1.0 
+         nmol) should be more than sufficient to see 
+         plenty of material by Coomassie without 
+         drastic overloading for a 10-lane gel. 
+         Adjust volume accordingly for higher 
+         concentrations.
+    ii.  If not yet quantitated, 1-5 mM pure protein 
+         solution after final concentration step is 
+         typical.  Loading 1 uL of 1 mM solution 
+         should more than suffice, and loading 1 uL 
+         of 2 mM or greater solutions can result in 
+         noticeable overloading of lanes. For a 
+         publication quality gel, it is probably best 
+         to quantify amount of protein first 
+
+vim: tw=53

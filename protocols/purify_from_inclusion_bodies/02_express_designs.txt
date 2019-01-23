@@ -1,0 +1,28 @@
+Purify KSI from inclusion bodies
+================================
+All steps to be at 4 C, unless otherwise stated.
+Values given here are for 2 L large cultures. Scale 
+for larger scale preps if needed.
+
+A. Express designs
+------------------
+1. Make a 50 mL overnight culture.  Use 50 mL LB and 
+   50 ug/mL (25 μL of 100 mg/mL) carbenicillin.
+2. Start 2 1L cultures from the overnight culture.  
+   For each culture, use:
+    - 1L LB
+    - 10 mL overnight culture (1:100 dilution)
+    - 50 μg/mL carbenicillin (500 μL of 100 mg/μL)
+3. Grow to an O.D. of 0.6 (~2 hours) at 37°C.  Remove 
+   1 mL aliquot of cells for SDS-PAGE.
+4. Induce with 0.5 mL 1M IPTG in each 1L culture 
+   (final IPTG concentration: 0.5 mM).
+5. Grow another 3-4 hours, then remove 1 mL aliquot 
+   of cells for SDS-PAGE.
+6. Harvest cells by centrifugation (3500 rpm/20'/4°C)
+7. Resuspend in 10-15 mL of buffer #1.  Remove 100 μL 
+   aliquot for SDS-PAGE.
+8. Freeze at -20°C to preserve for ~1 week or at 
+   -80°C to preserve for longer than that.
+
+vim: tw=53

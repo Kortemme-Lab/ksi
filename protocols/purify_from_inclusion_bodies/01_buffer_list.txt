@@ -1,0 +1,113 @@
+Buffer List
+-----------
+Store all buffers at 4°C except #6.  #6 is a 
+supersaturated urea solution at 4°C, so keep it at 
+room temperature to prevent the urea from crashing 
+out.  Bring #6 to 4°C the night before use.
+
+1. 40 mM Tris-HCl, 1 mM EDTA, 25% sucrose w/v, pH 8.5 
+
+   Amount needed per design:
+   10 mL
+
+   Recipe for 1L:
+   10 mL 1M Tris HCl
+   2 mL 0.5M EDTA
+   250 g sucrose
+
+2. 20 mM Tris-HCl, 1% sodium deoxycholate w/v, 200 mM 
+   NaCl, 2 mM EDTA, pH 8.5
+
+   Amount needed per design:
+   25 mL
+
+   Recipe for 1L:
+   20 mL 1M Tris HCl
+   40 mL 5M NaCl
+   4 mL 0.5M EDTA
+   10 g sodium deoxycholate
+
+3. 10 mM Tris-HCl, 0.25% sodium deoxycholate, pH 8.5
+
+   Amount needed per design:
+   25 mL
+
+   Recipe for 1L:
+   10 mL 1M Tris HCl
+   2.5 g sodium deoxycholate
+
+4. 20 mM Na-HEPES, 500 mM NaCl, 1 mM EDTA, pH 8.5
+
+   Amount needed per design:
+   25 mL
+
+   Recipe for 1L:
+   5.205g Na HEPES
+   100 mL 5M NaCl
+   2 mL 0.5M EDTA
+
+5. 8 M urea, 20 mM Na-HEPES, 500 mM NaCl, 1 mM EDTA, 
+   (10 mM DTT just before use), pH 8.5
+
+   Amount needed per design:
+   10 mL
+
+   Recipe for 1L:
+   480.48 g urea
+   5.206 g Na HEPES
+   100 mL 5M NaCl
+   2 mL 0.5M EDTA
+
+   Dissolving urea in water is very endothermic and 
+   urea becomes less soluble at lower temperatures, 
+   so you need to gently heat this buffer while 
+   stirring.  Use a glass 1L beaker, because the 
+   plastic one could melt.  Heat to ~55°C: enough to 
+   keep the buffer from getting too cold but not 
+   enough to really heat it up.
+
+6. 40 mM KPi, 1 mM EDTA, 2 mM DTT, pH 7.2
+
+   Amount needed per design:
+   210 mL + 50 mL per column
+
+   Recipe for 1L:
+   5.444 g potassium phosphate monobasic
+   2 mL 0.5 M EDTA
+   2 mL 1M DTT
+
+7. 400 mM KPi, 1 mM EDTA, 2 mM DTT, pH 7.2
+
+   Amount needed per design:
+   100 mL per column
+
+   Recipe for 1L:
+   54.44 g potassium phosphate monobasic
+   2 mL 0.5 M EDTA
+   2 mL 1M DTT
+
+   Note that it's hard to dissolve this much KPi.  
+   Expect to have to stir vigorously for a while.
+
+8. 40 mM KPi, 1 mM EDTA, 50% EtOH, 2 mM DTT, pH 7.2
+
+   Amount needed per design:
+   25 mL per column
+
+   Recipe for 1L:
+   5.444 g potassium phosphate monobasic
+   2 mL 0.5 M EDTA
+   2 mL 1M DTT
+   500 mL EtOH
+
+   KPi is not very soluble in EtOH, so this buffer 
+   also takes a long time to dissolve.
+
+9. 40% EtOH, 24 mM KPi
+
+   Amount needed per design:
+   20 mL per column
+
+   Recipe for 1L:
+   400 mL EtOH
+   240 mL 100 mM potassium phosphate, pH 7.2

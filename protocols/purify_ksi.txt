@@ -1,0 +1,114 @@
+Days 1-3
+========
+1. Transform KSI variant (pET vector) into BL21 
+   λ(DE3) cells.
+
+2. Prepare 5 mL overnight cultures (LB + Carb).
+
+3. Inoculate 1L day cultures (LB + Carb) with 1 mL 
+   overnight culture.
+
+4. Incubate at 37°C with shaking at 225 rpm.
+
+5. When OD600=0.4 (4-5h), induce KSI expression by 
+   adding 300 µL 1M IPTG (300 µM final).
+
+6. Lower temperature to 18°C and incubate overnight.
+
+Day 4
+=====
+1. Save a 1 mL aliquot of cells to test solubility 
+   [1].
+
+2. Pellet the remaining culture (3500 rpm; 20 min; 
+   4°C).
+
+3. Resuspend to pellet in 30 mL storage buffer (fresh 
+   DTT).  Keep at 4°C.  Add 300 µL 1 mg/mL DNase if 
+   the pellet seems too goopy.
+
+4. Prepare the deoxycholate column:
+  - Add 5 mL resin.
+  - Wash with 50 mL storage buffer (fresh DTT).
+  - Pressure OK.
+
+5. Lyse the cells by microfluidization.
+  - Save a 50 µL aliquot of the lysate.
+
+6. Pellet lysate (20,000 rpm; 20 min; 4°C).
+
+7. Decant supernatant onto the deoxycholate column.
+  - Gravity only.
+  - Save a 50 µL aliquot of the flow-through.
+
+8. Wash the column with 100 mL wash buffer (fresh 
+   DTT) and 50 mL storage buffer (fresh DTT).
+  - Pressure OK.
+  - Save a 50 µL aliquot of the wash.
+
+9. Elute with 25 mL elution buffer (fresh DTT).
+  - Gravity only.
+  - Save a 50 µL aliquot of the eluant.
+
+10. Switch into storage buffer (fresh DTT) by 
+    dialysis.
+
+Buffers
+=======
+Storage buffer:
+   ──────────────────────────────────────────────
+   Reagent     Final       Recipe   Notes
+   ──────────────────────────────────────────────
+   K₂HPO₄    27.8 mM      4.848 g   40 mM PO₄ [2]
+   KH₂PO₄    12.2 mM      1.656 g   pH 7.4
+   EDTA       1.0 mM   2 mL 0.5 M
+   DTT        2.0 mM   2 mL 1.0 M
+   water                   to 1 L
+   ──────────────────────────────────────────────
+
+   Amount needed per design:
+   - 210 mL + 50 mL per column
+
+Wash buffer:
+   ───────────────────────────────────────────────
+   Reagent     Final    1L Recipe   Notes
+   ───────────────────────────────────────────────
+   K₂HPO₄     278 mM      48.48 g   400 mM PO₄ [2]
+   KH₂PO₄     122 mM      16.56 g   pH 7.4
+   EDTA       1.0 mM   2 mL 0.5 M
+   DTT        2.0 mM   2 mL 1.0 M
+   water                   to 1 L
+   ───────────────────────────────────────────────
+
+   Amount needed per design:
+   - 100 mL per column
+
+   Note that it's hard to dissolve this much KPi.  
+   Expect to have to stir vigorously for a while.
+
+Elution buffer:
+   ──────────────────────────────────────────────
+   Reagent     Final       Recipe   Notes
+   ──────────────────────────────────────────────
+   K₂HPO₄    27.8 mM      4.848 g   40 mM PO₄ [2]
+   KH₂PO₄    12.2 mM      1.656 g   pH 7.4
+   EDTA       1.0 mM   2 mL 0.5 M
+   DTT        2.0 mM   2 mL 1.0 M
+   EtOH          50%       500 mL
+   water                   to 1 L
+   ──────────────────────────────────────────────
+
+   Amount needed per design:
+   - 25 mL per column
+
+   KPO₄ is not very soluble in EtOH, so add the EtOH 
+   last and allow enough time the KPO₄ to dissolve.
+
+Notes
+=====
+[1] See `solubility_gel.txt`
+
+[2] Potassium phosphate buffer recipes from:
+    https://www.aatbio.com/resources/buffer-preparations-and-recipes/potassium-phosphate-ph-5-8-to-8-0
+
+vim: tw=53
