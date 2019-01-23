@@ -1,0 +1,52 @@
+Materials:
+- 137 mL Sepharose CL-6B slurry
+- 2.05 g EDAC
+- 11.5 mL ethylenediamine
+- 500 mL acetone
+- 214 mg 1,1-carbonyldiimidizole (CDI)
+- 1.64 g sodium deoxycholate
+- 70 mL 1,4-dioxane
+
+Procedure:
+1.  Wash 137 mL of sepharose with distilled water, 
+    7:3 W:Acetone, 3:7 W:Acetone, 100% Acetone 
+    successively, approximately one volume of each.  
+    (use a Buchner funnel or similar for washing)
+
+2.  Resuspend resin in acetone, and add 214 mg of CDI 
+    in 5 mL acetone.  Stir (by rotation) for 15 
+    minutes before washing with acetone (1-2 volumes)
+
+3.  Dissolve 11.5 mL ethylenediamine in 137 mL water.  
+    Change pH to 10 using NaOH/HCl as needed (check 
+    with pH paper, not meter – I needed ~5 mL 
+    concentrated HCl)
+
+4.  Add this solution to the activated resin, let 
+    react for 15 minutes as before.
+
+5.  Wash with 500 mL each of water, 1 M NaCl and 
+    water again.
+
+6.  Dissolve 1.64 g sodium deoxycholate (use the 
+    sodium salt, as it is much more soluble; could 
+    also use deoxycholic acid + NaOH to generate the 
+    sodium salt) in 137 mL 50% dioxane/water
+
+7.  Add 2.05 g EDAC to this solution
+
+8.  Add solution to the resin
+
+9.  Rotate 24 hours at room temperature
+
+10. Wash with ~1.5 L 40 mM potassium phosphate pH 7, 
+    until you stop seeing foam 
+    in the wash (gotten rid of the free deoxycholate)
+
+Notes
+=====
+Essentially this is coupling an amine linker to the 
+sepharose, and then coupling deoxycholate to the 
+amine.  
+
+vim: tw=53
